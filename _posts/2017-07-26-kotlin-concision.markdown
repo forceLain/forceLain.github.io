@@ -24,11 +24,11 @@ Also, it checks the coordinates of every side of the last cell.
 The code is clearly understandable, however it looks sloppy. Let's look how Kotlin can improve it.
 
 ```java
-fun assertCellPosition(cellInfo: SectionLayoutView.CellInfo, left: Int? = null, top: Int? = null, right: Int? = null, bottom: Int? = null) {
-    left?.let { assertEquals(it, cellInfo.left) }
-    top?.let { assertEquals(it, cellInfo.top) }
-    right?.let { assertEquals(it, cellInfo.right) }
-    bottom?.let { assertEquals(it, cellInfo.bottom) }
+fun assertCellPosition(cell: Cell, left: Int? = null, top: Int? = null, right: Int? = null, bottom: Int? = null) {
+    left?.let { assertEquals(it, cell.left) }
+    top?.let { assertEquals(it, cell.top) }
+    right?.let { assertEquals(it, cell.right) }
+    bottom?.let { assertEquals(it, cell.bottom) }
 }
 ```
 
