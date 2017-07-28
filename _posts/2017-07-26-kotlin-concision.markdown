@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "How Kotlin's named arguments might make your code more expressive"
+title:  "How Kotlin named arguments might make your code more expressive"
 date:   2017-07-28 14:00:00 +0700
 ---
 
