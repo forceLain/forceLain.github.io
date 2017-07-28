@@ -33,7 +33,7 @@ fun assertCellPosition(cellInfo: SectionLayoutView.CellInfo, left: Int? = null, 
 ```
 
 What you see is a function with: 1) named arguments; 2) default arguments. 
-In the function body, we only check those coordinates which were been passed to the function.
+In the function body, we only check those coordinates which are passed to the function.
 
 Now, we are able to write this
 
