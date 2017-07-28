@@ -4,7 +4,7 @@ title:  "How Kotlin named arguments might make your code more expressive"
 date:   2017-07-28 14:00:00 +0700
 ---
 
-One day, I was making unit tests and had faced with code like this:
+One day, I was making unit tests and faced with code like this:
 
 ```java
 assertEquals(cells[0].left, 100)
