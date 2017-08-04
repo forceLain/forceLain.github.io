@@ -1,5 +1,82 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-07-28T15:56:51+07:00</updated><id>http://localhost:4000/</id><title type="html">forceLain’s Blog</title><subtitle>Something useful and interesting about Android development, Java, Kotlin and so on
-</subtitle><entry><title type="html">How Kotlin named arguments might make your code more expressive</title><link href="http://localhost:4000/2017/07/28/kotlin-concision.html" rel="alternate" type="text/html" title="How Kotlin named arguments might make your code more expressive" /><published>2017-07-28T14:00:00+07:00</published><updated>2017-07-28T14:00:00+07:00</updated><id>http://localhost:4000/2017/07/28/kotlin-concision</id><content type="html" xml:base="http://localhost:4000/2017/07/28/kotlin-concision.html">&lt;p&gt;One day, I was making unit tests and faced with code like this:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-04T20:53:38+07:00</updated><id>http://localhost:4000/</id><title type="html">forceLain’s Blog</title><subtitle>Something useful and interesting about Android development, Java, Kotlin and so on
+</subtitle><entry><title type="html">You don’t need a variable for this</title><link href="http://localhost:4000/2017/08/04/you-don-t-need-a-variable-for-this.html" rel="alternate" type="text/html" title="You don't need a variable for this" /><published>2017-08-04T20:00:00+07:00</published><updated>2017-08-04T20:00:00+07:00</updated><id>http://localhost:4000/2017/08/04/you-don-t-need-a-variable-for-this</id><content type="html" xml:base="http://localhost:4000/2017/08/04/you-don-t-need-a-variable-for-this.html">&lt;p&gt;We write variables a lot. Every time we write a new variable we should give it a name. Naming the variables is a hard thing, good naming is harder. Why don’t solve both of the problems at the same time? With Kotlin, you can avoid creating variables if you don’t need them. So, you don’t have to name your variables if you don’t have them.&lt;/p&gt;
+
+&lt;p&gt;Look at this code:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;modelWithTitle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fromJson&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jsonWithTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modelWithTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;test-title&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modelWithTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;test-sub-title&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;modelEmptyTitle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fromJson&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jsonEmptyTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;assertNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modelEmptyTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;assertNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modelEmptyTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;modelEmpty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fromJson&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;assertNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modelEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;assertNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modelEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;There are three local variables: &lt;code class=&quot;highlighter-rouge&quot;&gt;modelWithTitle&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;modelEmptyTitle&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;modelEmpty&lt;/code&gt;. The only reason of their existence is that we need to refer to their content to check it.&lt;/p&gt;
+
+&lt;p&gt;In Kotlin, we can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;apply(...)&lt;/code&gt; function to avoid unnecessary variables:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fromJson&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jsonWithTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;test-title&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;test-sub-title&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;fromJson&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jsonEmptyTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;fromJson&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apply(...)&lt;/code&gt; is an extension function and you can call it on any object. Also, you pass a lambda to the &lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt; function and the object is available inside the lambda by &lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt; keyword. And, as you know, we can omit the &lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt; keyword.&lt;/p&gt;
+
+&lt;p&gt;Here is another example:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fun getProfile(): Profile {
+    val response = webApi.getUserDataRequest().execute()
+    val userDataEntity = response.body().getUserDataResponse.userData
+    return mapper.mapUserDataResponse(userDataEntity)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In this example, we save the result of the request into &lt;code class=&quot;highlighter-rouge&quot;&gt;response&lt;/code&gt;, then we save &lt;code class=&quot;highlighter-rouge&quot;&gt;userData&lt;/code&gt; from the response’s body into &lt;code class=&quot;highlighter-rouge&quot;&gt;userDataEntity&lt;/code&gt; just to immediately pass it to the mapper. Of course, we can just throw all the variables away and write this all in one line:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fun getProfile(): Profile {
+    return mapper.mapUserDataResponse(webApi.getUserDataRequest().execute().body().getUserDataResponse.userData)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I don’t know if someone could call this code readable. What you really want write is “make a request”, then “get a response body”, then “map the body to a model”. What the previous code says is “map the body of the response of the request”, which sounds weird.&lt;/p&gt;
+
+&lt;p&gt;In Kotlin, we can cope with both problems by using the ‘run(…)’ function. ‘run’ is pretty much like &lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt;, but can return an object with another type. We can think of &lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt; like as a mapping or a transform function.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fun getProfile(): Profile {
+    return webApi.getUserDataRequest().execute()
+            .run { body().getUserDataResponse.userData }
+            .run { mapper.mapUserDataResponse(this) }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The first &lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt; transforms the response into ‘userData’. The second &lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt; transforms &lt;code class=&quot;highlighter-rouge&quot;&gt;userData&lt;/code&gt; into &lt;code class=&quot;highlighter-rouge&quot;&gt;Profile&lt;/code&gt; by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;mapper&lt;/code&gt;. This code expressivly says: “make a request” -&amp;gt; “get the response body” -&amp;gt; “transform into POJO”.&lt;/p&gt;</content><author><name></name></author><summary type="html">We write variables a lot. Every time we write a new variable we should give it a name. Naming the variables is a hard thing, good naming is harder. Why don’t solve both of the problems at the same time? With Kotlin, you can avoid creating variables if you don’t need them. So, you don’t have to name your variables if you don’t have them.</summary></entry><entry><title type="html">How Kotlin named arguments might make your code more expressive</title><link href="http://localhost:4000/2017/07/28/kotlin-concision.html" rel="alternate" type="text/html" title="How Kotlin named arguments might make your code more expressive" /><published>2017-07-28T14:00:00+07:00</published><updated>2017-07-28T14:00:00+07:00</updated><id>http://localhost:4000/2017/07/28/kotlin-concision</id><content type="html" xml:base="http://localhost:4000/2017/07/28/kotlin-concision.html">&lt;p&gt;One day, I was making unit tests and faced with code like this:&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cells&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cells&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;120&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
