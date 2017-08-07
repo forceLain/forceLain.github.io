@@ -4,7 +4,7 @@ title:  "You don't need a variable for this"
 date:   2017-08-04 20:00:00 +0700
 ---
 
-We write variables a lot. Every time we write a new variable we should give it a name. Naming the variables is a hard thing, good naming is harder. Why don't solve both of the problems at the same time? With Kotlin, you can avoid creating variables if you don't need them. So, you don't have to name your variables if you don't have them.
+We write variables a lot. Every time we write a new variable we should give it a name. Naming the variables is a hard thing, good naming is even harder. Why don't we solve both problems at once? With Kotlin, you can avoid creating variables if you don't need them. So, you don't have to name your variables if you don't have them.
 
 Look at this code:
 
@@ -61,7 +61,7 @@ fun getProfile(): Profile {
 }
 ```
 
-In this example, we save the result of the request into `response`, then we save `userData` from the response's body into `userDataEntity` just to immediately pass it to the mapper. Of course, we can just throw all the variables away and write this all in one line:
+In this example, we save the result of the request into `response`, then we save `userData` from the response body into `userDataEntity` just to immediately pass it to the mapper. Of course, we can just throw all the variables away and write this all in one line:
 
 ```
 fun getProfile(): Profile {
@@ -69,7 +69,7 @@ fun getProfile(): Profile {
 }
 ```
 
-I don't know if someone could call this code readable. What you really want write is "make a request", then "get a response body", then "map the body to a model". What the previous code says is "map the body of the response of the request", which sounds weird.
+I don't know if someone could call this code readable. What you really want to write is "make a request", then "get a response body", then "map the body to a model". What the previous code says is "map the body of the response of the request", which sounds weird.
 
 In Kotlin, we can cope with both problems by using the 'run(...)' function. 'run' is pretty much like `apply`, but can return an object with another type. We can think of `run` like as a mapping or a transform function.
 

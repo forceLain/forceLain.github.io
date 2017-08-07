@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>You don&#39;t need a variable for this</title>
-  <meta name="description" content="We write variables a lot. Every time we write a new variable we should give it a name. Naming the variables is a hard thing, good naming is harder. Why don’t...">
+  <meta name="description" content="We write variables a lot. Every time we write a new variable we should give it a name. Naming the variables is a hard thing, good naming is even harder. Why ...">
 
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="canonical" href="http://localhost:4000/2017/08/04/you-don-t-need-a-variable-for-this.html">
@@ -80,7 +80,7 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>We write variables a lot. Every time we write a new variable we should give it a name. Naming the variables is a hard thing, good naming is harder. Why don’t solve both of the problems at the same time? With Kotlin, you can avoid creating variables if you don’t need them. So, you don’t have to name your variables if you don’t have them.</p>
+    <p>We write variables a lot. Every time we write a new variable we should give it a name. Naming the variables is a hard thing, good naming is even harder. Why don’t we solve both problems at once? With Kotlin, you can avoid creating variables if you don’t need them. So, you don’t have to name your variables if you don’t have them.</p>
 
 <p>Look at this code:</p>
 
@@ -137,7 +137,7 @@
 </code></pre>
 </div>
 
-<p>In this example, we save the result of the request into <code class="highlighter-rouge">response</code>, then we save <code class="highlighter-rouge">userData</code> from the response’s body into <code class="highlighter-rouge">userDataEntity</code> just to immediately pass it to the mapper. Of course, we can just throw all the variables away and write this all in one line:</p>
+<p>In this example, we save the result of the request into <code class="highlighter-rouge">response</code>, then we save <code class="highlighter-rouge">userData</code> from the response body into <code class="highlighter-rouge">userDataEntity</code> just to immediately pass it to the mapper. Of course, we can just throw all the variables away and write this all in one line:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>fun getProfile(): Profile {
     return mapper.mapUserDataResponse(webApi.getUserDataRequest().execute().body().getUserDataResponse.userData)
@@ -145,7 +145,7 @@
 </code></pre>
 </div>
 
-<p>I don’t know if someone could call this code readable. What you really want write is “make a request”, then “get a response body”, then “map the body to a model”. What the previous code says is “map the body of the response of the request”, which sounds weird.</p>
+<p>I don’t know if someone could call this code readable. What you really want to write is “make a request”, then “get a response body”, then “map the body to a model”. What the previous code says is “map the body of the response of the request”, which sounds weird.</p>
 
 <p>In Kotlin, we can cope with both problems by using the ‘run(…)’ function. ‘run’ is pretty much like <code class="highlighter-rouge">apply</code>, but can return an object with another type. We can think of <code class="highlighter-rouge">run</code> like as a mapping or a transform function.</p>
 
